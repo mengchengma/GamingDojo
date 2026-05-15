@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx --yes tsc --noEmit -p .)",
+      "mcp__Claude_Preview__preview_start",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri 'http://localhost:4000' -UseBasicParsing -TimeoutSec 30; \"HTTP $\\($r.StatusCode\\) - $\\([math]::Round\\($r.RawContentLength/1024,1\\)\\) KB\" } catch { \"ERR: $\\($_.Exception.Message\\)\" })"
+    ]
+  }
+}

@@ -1,0 +1,281 @@
+@import "tailwindcss";
+
+/* Enable class-based dark mode via .dark on <html>. */
+@variant dark (&:where(.dark, .dark *));
+
+/* Theme tokens are wired to runtime CSS variables so they swap at runtime. */
+@theme inline {
+  /* ---------- Typography ---------- */
+  --font-display: var(--font-fraunces), "Source Serif Pro", Georgia, serif;
+  --font-body: var(--font-hanken), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  /* ---------- Semantic color tokens (point at runtime vars) ---------- */
+  --color-sumi: var(--c-bg);
+  --color-shadow: var(--c-shadow);
+  --color-panel: var(--c-panel);
+  --color-raised: var(--c-raised);
+  --color-ash: var(--c-border);
+  --color-iron: var(--c-border-strong);
+  --color-bone: var(--c-text);
+  --color-paper: var(--c-text-strong);
+  --color-muted: var(--c-muted);
+  --color-mute2: var(--c-muted-2);
+  --color-hachimaki: var(--c-accent);
+  --color-crimson: var(--c-accent-strong);
+  --color-blood: var(--c-accent-deep);
+  --color-sensei: var(--c-honey);
+  --color-cyber: var(--c-sage);
+  --color-brand: var(--c-brand);
+
+  /* ---------- Animations ---------- */
+  --animate-grain: grain 8s steps(10) infinite;
+  --animate-scan: scan 6s linear infinite;
+  --animate-flicker: flicker 4s linear infinite;
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-spotlight: spotlight 2s ease 0.4s forwards;
+}
+
+/* ============================================================
+   DARK MODE — default ("midnight navy lounge")
+   Brand navy from the GD logo + warm gold pops + cream text.
+============================================================ */
+:root {
+  color-scheme: dark;
+
+  --c-bg: #0a0f24;            /* deep brand navy bg */
+  --c-shadow: #0e1430;
+  --c-panel: #141a3c;
+  --c-raised: #1b2350;
+  --c-border: #26305f;
+  --c-border-strong: #36436f;
+  --c-text: #f5efe3;          /* warm cream */
+  --c-text-strong: #fdf9ee;
+  --c-muted: #8b96b8;
+  --c-muted-2: #5d6788;
+  --c-accent: #f5b35c;        /* warm gold — pops on navy, keeps cozy */
+  --c-accent-strong: #e89545;
+  --c-accent-deep: #b86d2a;
+  --c-honey: #d4b97a;
+  --c-sage: #94b0d0;
+
+  --c-brand: #f5efe3;         /* logo color in dark mode — cream so it pops on navy */
+  --c-brand-rgb: 245, 239, 227;
+  --c-accent-rgb: 245, 179, 92;
+  --c-grad-from: #fdf9ee;
+  --c-grad-to: #8b96b8;
+  --c-grid-dot: rgba(245, 239, 227, 0.05);
+  --c-scan-line: rgba(245, 239, 227, 0.014);
+}
+
+/* ============================================================
+   LIGHT MODE — "aged parchment lounge"
+   Deeper honey cream bg + brand-navy text + burnt amber accents.
+   Reads warmer + richer than a typical light theme.
+============================================================ */
+.light {
+  color-scheme: light;
+
+  --c-bg: #f4ead0;            /* soft honey cream — warm but bright */
+  --c-shadow: #ecdfbb;
+  --c-panel: #e1d1a3;
+  --c-raised: #d4c08a;
+  --c-border: #bca873;
+  --c-border-strong: #9b8657;
+  --c-text: #0F1937;          /* brand navy — primary text */
+  --c-text-strong: #070d22;
+  --c-muted: #4a557a;
+  --c-muted-2: #6e7896;
+  --c-accent: #b65c25;        /* burnt amber, AA contrast on cream */
+  --c-accent-strong: #984a1d;
+  --c-accent-deep: #6a3010;
+  --c-honey: #8a6c40;
+  --c-sage: #5a7290;
+
+  --c-brand: #0F1937;
+  --c-brand-rgb: 15, 25, 55;
+  --c-accent-rgb: 182, 92, 37;
+  --c-grad-from: #0F1937;
+  --c-grad-to: #4a557a;
+  --c-grid-dot: rgba(15, 25, 55, 0.08);
+  --c-scan-line: rgba(15, 25, 55, 0.018);
+}
+
+/* ============ Base ============ */
+html {
+  scroll-behavior: smooth;
+  background: var(--color-sumi);
+}
+
+body {
+  background: var(--color-sumi);
+  color: var(--color-bone);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--color-hachimaki);
+  color: var(--color-sumi);
+}
+
+/* ============ Utility classes ============ */
+
+/* Subtle filmic grain — uses warm tone in both modes (mix-blend-mode handles polarity) */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  pointer-events: none;
+  z-index: 1;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.96 0 0 0 0 0.88 0 0 0 0 0.74 0 0 0 0.16 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  animation: grain 8s steps(10) infinite;
+}
+
+/* Scanline overlay (very subtle) */
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    var(--c-scan-line) 2px,
+    var(--c-scan-line) 3px
+  );
+  z-index: 2;
+}
+
+/* Soft corner accents */
+.brackets {
+  position: relative;
+}
+.brackets::before,
+.brackets::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--color-hachimaki);
+  border-style: solid;
+  opacity: 0.5;
+}
+.brackets::before {
+  top: -1px;
+  left: -1px;
+  border-width: 1px 0 0 1px;
+}
+.brackets::after {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 1px 1px 0;
+}
+
+/* Spinner used by Spline Suspense fallback */
+.loader {
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--color-ash);
+  border-top-color: var(--color-hachimaki);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Diagonal candlelight stripe (used sparingly) */
+.hazard-tape {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-hachimaki) 0,
+    var(--color-hachimaki) 8px,
+    var(--color-sumi) 8px,
+    var(--color-sumi) 16px
+  );
+}
+
+/* Subtle radial vignette */
+.vignette::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.5) 100%);
+  z-index: 1;
+}
+
+/* Warm dot grid (uses runtime var so it swaps in light mode) */
+.dot-grid {
+  background-image: radial-gradient(circle at 1px 1px, var(--c-grid-dot) 1px, transparent 0);
+  background-size: 26px 26px;
+}
+
+/* Gradient text helper — warm cream→walnut fade in dark, walnut→muted in light */
+.gradient-bone {
+  background: linear-gradient(180deg, var(--c-grad-from) 0%, var(--c-grad-to) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Soft warm glow */
+.warm-glow {
+  box-shadow:
+    0 0 0 1px rgba(var(--c-accent-rgb), 0.25),
+    0 12px 48px -12px rgba(var(--c-accent-rgb), 0.4);
+}
+
+/* ============ Keyframes ============ */
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+}
+
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.97; }
+  52% { opacity: 0.85; }
+  54% { opacity: 1; }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes spotlight {
+  0% { opacity: 0; transform: translate(-72%, -62%) scale(0.5); }
+  100% { opacity: 1; transform: translate(-50%, -40%) scale(1); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============ Reduced motion ============ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
