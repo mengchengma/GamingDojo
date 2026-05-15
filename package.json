@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-  "dev": "next dev -p 4000",
-  "build": "next build",
-  "start": "next start -p 4000"
-},
+    "dev": "next dev -p 4000",
+    "build": "next build",
+    "start": "next start -p 4000"
+  },
   "dependencies": {
     "@splinetool/react-spline": "^4.0.0",
     "@splinetool/runtime": "^1.9.48",
@@ -14,7 +14,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^11.18.0",
     "lucide-react": "^0.469.0",
-    "next": "15.1.4",
+    "next": "^15.5.18",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwind-merge": "^2.6.0"
