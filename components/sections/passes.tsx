@@ -39,7 +39,7 @@ const PASSES = [
   {
     Icon: CalendarRange,
     name: "Month Pass",
-    price: 200,
+    price: 199,
     suffix: "/mo",
     tagline: "Your second living room.",
     features: [

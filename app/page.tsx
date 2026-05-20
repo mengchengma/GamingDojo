@@ -7,6 +7,7 @@ import { BattleStations } from "@/components/sections/battle-stations";
 import { Games } from "@/components/sections/games";
 import { DojoBites } from "@/components/sections/dojo-bites";
 import { Hours } from "@/components/sections/hours";
+import { Events } from "@/components/sections/events";
 import { TournamentsCTA } from "@/components/sections/tournaments-cta";
 import { Partners } from "@/components/sections/partners";
 import { Location } from "@/components/sections/location";
@@ -24,6 +25,7 @@ export default function HomePage() {
       <Games />
       <DojoBites />
       <Hours />
+      <Events />
       <TournamentsCTA />
       <Partners />
       <Location />

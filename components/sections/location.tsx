@@ -20,7 +20,7 @@ export function Location() {
     >
       <div className="relative mx-auto max-w-7xl px-5 md:px-8">
         <SectionHeader
-          index="08"
+          index="09"
           eyebrow="Visit"
           title={
             <>
