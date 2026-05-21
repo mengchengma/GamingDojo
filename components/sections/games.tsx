@@ -1,9 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import { useState } from "react";
 import { SectionHeader } from "@/components/ui/section-header";
+import { Button } from "@/components/ui/button";
+import { GameLibraryModal } from "@/components/ui/game-library-modal";
 import { motion } from "framer-motion";
-import { Gamepad2 } from "lucide-react";
+import { Gamepad2, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Platform = "PC" | "XBOX" | "PS5" | "SWITCH";
@@ -20,25 +23,25 @@ interface Game {
 // PLACEHOLDER LINEUP — easy to edit. Drop cover art at /public/games/<slug>.jpg
 // and reference it via the `image` field, e.g. image: "/games/valorant.jpg".
 const ROW_1: Game[] = [
-  { title: "Valorant", genre: "Tactical FPS", platforms: ["PC"], hot: true },
-  { title: "League of Legends", genre: "MOBA", platforms: ["PC"] },
-  { title: "Counter-Strike 2", genre: "FPS", platforms: ["PC"], hot: true },
-  { title: "Overwatch 2", genre: "Hero shooter", platforms: ["PC", "XBOX", "PS5"] },
-  { title: "Apex Legends", genre: "Battle royale", platforms: ["PC", "XBOX", "PS5"] },
-  { title: "Marvel Rivals", genre: "Hero shooter", platforms: ["PC", "XBOX", "PS5"], hot: true },
-  { title: "Rocket League", genre: "Sports", platforms: ["PC", "XBOX", "PS5", "SWITCH"] },
-  { title: "Fortnite", genre: "Battle royale", platforms: ["PC", "XBOX", "PS5", "SWITCH"] },
+  { title: "Valorant", genre: "Tactical FPS", platforms: ["PC"], hot: true, image: "/games/valorant.png" },
+  { title: "League of Legends", genre: "MOBA", platforms: ["PC"], image: "/games/leagueoflegends.png" },
+  { title: "Counter-Strike 2", genre: "FPS", platforms: ["PC"], hot: true, image: "/games/counter-strike-2.png" },
+  { title: "Overwatch 2", genre: "Hero shooter", platforms: ["PC", "XBOX", "PS5"], image: "/games/overwatch2.png" },
+  { title: "Apex Legends", genre: "Battle royale", platforms: ["PC", "XBOX", "PS5"], image: "/games/apexlegends.png" },
+  { title: "Marvel Rivals", genre: "Hero shooter", platforms: ["PC", "XBOX", "PS5"], hot: true, image: "/games/marvelrivals.png" },
+  { title: "Rocket League", genre: "Sports", platforms: ["PC", "XBOX", "PS5", "SWITCH"], image: "/games/rocketleague.png" },
+  { title: "Fortnite", genre: "Battle royale", platforms: ["PC", "XBOX", "PS5", "SWITCH"], image: "/games/fortnite.png" },
 ];
 
 const ROW_2: Game[] = [
-  { title: "Elden Ring", genre: "Action RPG", platforms: ["PC", "XBOX", "PS5"] },
-  { title: "Baldur's Gate 3", genre: "RPG", platforms: ["PC", "PS5"] },
-  { title: "Cyberpunk 2077", genre: "Open world", platforms: ["PC", "XBOX", "PS5"] },
-  { title: "GTA V", genre: "Open world", platforms: ["PC", "XBOX", "PS5"] },
-  { title: "Super Smash Bros.", genre: "Fighting", platforms: ["SWITCH"], hot: true },
-  { title: "Mario Kart 8", genre: "Racing", platforms: ["SWITCH"] },
-  { title: "Spider-Man 2", genre: "Action", platforms: ["PS5"] },
-  { title: "Rainbow Six Siege", genre: "Tactical FPS", platforms: ["PC", "XBOX", "PS5"] },
+  { title: "PUBG", genre: "Battle royale", platforms: ["PC"], image: "/games/pubg.png" },
+  { title: "DeltaForce", genre: "Shooter", platforms: ["PC"], image: "/games/deltaforce.png" },
+  { title: "GTA V", genre: "Open world", platforms: ["PC", "XBOX", "PS5"], image: "/games/gtav.png" },
+  { title: "Super Smash Bros.", genre: "Fighting", platforms: ["SWITCH"], hot: true, image: "/games/supersmashbros.png" },
+  { title: "Mario Kart 8", genre: "Racing", platforms: ["SWITCH"], image: "/games/mariokart8.png" },
+  { title: "Tekken 8", genre: "Fighting", platforms: ["PC", "XBOX", "PS5"], image: "/games/tekken8.png" },
+  { title: "Rainbow Six Siege", genre: "Tactical FPS", platforms: ["PC", "XBOX", "PS5"], image: "/games/rainbowsixsiege.png" },
+  { title: "Call of Duty: Modern Warfare II", genre: "Tactical FPS", platforms: ["PC", "XBOX", "PS5"], image: "/games/callofduty.png" },
 ];
 
 const PLATFORM_STYLES: Record<Platform, string> = {
@@ -157,54 +160,74 @@ function MarqueeRow({
 }
 
 export function Games() {
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
-    <section
-      id="games"
-      className="relative isolate py-24 md:py-32 border-t border-ash overflow-hidden"
-    >
-      <div className="absolute inset-0 dot-grid opacity-50" />
-
-      <div className="relative mx-auto max-w-7xl px-5 md:px-8">
-        <SectionHeader
-          eyebrow="Game library"
-          title={
-            <>
-              Every title you{" "}
-              <span className="text-hachimaki italic">came for.</span>
-            </>
-          }
-        />
-
-        <p className="mt-6 max-w-2xl text-bone/75 text-base md:text-lg leading-relaxed">
-          Ranked-ready esports loadouts, story-mode behemoths, party-game
-          rotation — all installed, updated, ready when you sit down. Hover any
-          row to pause.
-        </p>
-      </div>
-
-      {/* Two rows, opposite directions */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="relative mt-14 space-y-6"
+    <>
+      <section
+        id="games"
+        className="relative isolate py-24 md:py-32 border-t border-ash overflow-hidden"
       >
-        <MarqueeRow games={ROW_1} duration={60} />
-        <MarqueeRow games={ROW_2} duration={70} reverse />
+        <div className="absolute inset-0 dot-grid opacity-50" />
 
-        {/* Edge fades — softens the marquee ends */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-20 md:w-32 bg-gradient-to-r from-sumi to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-20 md:w-32 bg-gradient-to-l from-sumi to-transparent" />
-      </motion.div>
+        <div className="relative mx-auto max-w-7xl px-5 md:px-8">
+          <SectionHeader
+            eyebrow="Game library"
+            title={
+              <>
+                Every title you{" "}
+                <span className="text-hachimaki italic">came for.</span>
+              </>
+            }
+          />
 
-      {/* Bottom note */}
-      <div className="relative mt-10 mx-auto max-w-7xl px-5 md:px-8 flex flex-wrap items-center gap-3 text-xs font-mono uppercase tracking-[0.3em] text-muted">
-        <span className="text-hachimaki">●</span>
-        <span>Popular right now</span>
-        <span className="h-px flex-1 max-w-32 bg-ash" />
-        <span>Don&apos;t see your game? Ask staff — most install in five.</span>
-      </div>
-    </section>
+          <div className="mt-6 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <p className="max-w-2xl text-bone/75 text-base md:text-lg leading-relaxed">
+              Ranked-ready esports loadouts, story-mode behemoths, party-game
+              rotation — all installed, updated, ready when you sit down. Hover
+              any row to pause.
+            </p>
+
+            <Button
+              variant="primary"
+              size="lg"
+              className="shrink-0"
+              onClick={() => setModalOpen(true)}
+            >
+              <Search className="size-4" />
+              Browse all games
+            </Button>
+          </div>
+        </div>
+
+        {/* Two rows, opposite directions */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative mt-14 space-y-6"
+        >
+          <MarqueeRow games={ROW_1} duration={60} />
+          <MarqueeRow games={ROW_2} duration={70} reverse />
+
+          {/* Edge fades — softens the marquee ends */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-20 md:w-32 bg-gradient-to-r from-sumi to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-20 md:w-32 bg-gradient-to-l from-sumi to-transparent" />
+        </motion.div>
+
+        {/* Bottom note */}
+        <div className="relative mt-10 mx-auto max-w-7xl px-5 md:px-8 flex flex-wrap items-center gap-3 text-xs font-mono uppercase tracking-[0.3em] text-muted">
+          <span className="text-hachimaki">●</span>
+          <span>Popular right now</span>
+          <span className="h-px flex-1 max-w-32 bg-ash" />
+          <span>
+            Don&apos;t see your game? Ask staff — most install in five.
+          </span>
+        </div>
+      </section>
+
+      <GameLibraryModal open={modalOpen} onClose={() => setModalOpen(false)} />
+    </>
   );
 }

@@ -104,7 +104,7 @@ const SERVICES: Service[] = [
 const CONSOLES = [
   {
     name: "Xbox Series X",
-    tag: "120 FPS · Game Pass library",
+    tag: "120 FPS · Xbox exclusives",
     dot: "#22c55e",
   },
   {
