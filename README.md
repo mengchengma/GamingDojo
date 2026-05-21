@@ -4,6 +4,8 @@ Marketing site for **Gaming Dojo**, a gaming café in Flushing, NYC. Built as a 
 
 > 36-29 Main St, Flushing, NY 11354 · 3 min from the 7 train
 
+Live Website: https://gaming-dojo.vercel.app
+
 ## Tech Stack
 
 - [Next.js 15](https://nextjs.org/) (App Router) + React 19
