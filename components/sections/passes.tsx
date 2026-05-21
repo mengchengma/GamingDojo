@@ -30,7 +30,7 @@ const PASSES = [
     tagline: "Seven days, zero friction. Best for the regulars.",
     features: [
       "Unlimited play for 7 consecutive days",
-      "Priority on busy nights",
+      "Includes PC and console stations",
       "Member rate locks in automatically",
     ],
     saving: "≈ 19 hrs free vs. hourly",
@@ -44,8 +44,8 @@ const PASSES = [
     tagline: "Your second living room.",
     features: [
       "Unlimited play for 30 consecutive days",
-      "Reserve a station ahead of time",
-      "Free entry to in-house tournaments",
+      "All stations included — PC and console",
+      "Exclusive Discord role",
     ],
     saving: "≈ 56 hrs free vs. hourly",
   },
@@ -61,7 +61,6 @@ export function Passes() {
 
       <div className="relative mx-auto max-w-7xl px-5 md:px-8">
         <SectionHeader
-          index="02"
           eyebrow="Passes"
           title={
             <>
@@ -162,7 +161,7 @@ export function Passes() {
             get $8/hr — passes are for when you&apos;re here often enough that
             even that adds up.
           </p>
-          <a href="#visit">
+          <a href="/#visit">
             <Button variant="outline">Buy at the counter</Button>
           </a>
         </div>

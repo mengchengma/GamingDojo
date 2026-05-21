@@ -97,13 +97,13 @@ export function Hero() {
           className="mt-8 md:mt-10 flex flex-col items-center gap-4"
         >
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <a href="#pricing">
+            <a href="/#pricing">
               <Button variant="primary" size="lg">
                 See pricing
                 <ArrowUpRight className="size-4" />
               </Button>
             </a>
-            <a href="#visit">
+            <a href="/#visit">
               <Button variant="outline" size="lg">
                 <MapPin className="size-4" />
                 Find us
@@ -111,7 +111,7 @@ export function Hero() {
             </a>
           </div>
           <a
-            href="#games"
+            href="/#games"
             className="group inline-flex items-center gap-1.5 font-display text-sm italic text-bone/70 hover:text-hachimaki transition-colors duration-200 cursor-pointer"
           >
             Or browse the games

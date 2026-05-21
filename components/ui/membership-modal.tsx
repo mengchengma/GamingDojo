@@ -22,7 +22,7 @@ const SOCIALS = [
     Icon: Music2,
     label: "TikTok",
     handle: "@gamingdojo",
-    href: "https://tiktok.com",
+    href: "https://www.tiktok.com/@gamingdojonyc",
     accent: "from-cyan-500/20 to-pink-500/20",
   },
   {

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
+import { SiteNav } from "@/components/sections/site-nav";
+import { Footer } from "@/components/sections/footer";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -68,7 +70,13 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
-      <body className="bg-sumi text-bone font-body antialiased">{children}</body>
+      <body className="bg-sumi text-bone font-body antialiased">
+        <main className="grain relative bg-sumi text-bone">
+          <SiteNav />
+          {children}
+          <Footer />
+        </main>
+      </body>
     </html>
   );
 }

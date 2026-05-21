@@ -1,23 +1,34 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Logo } from "@/components/ui/logo";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
-const NAV = [
-  { label: "Pricing", href: "#pricing", num: "01" },
-  { label: "Specs", href: "#stations", num: "02" },
-  { label: "Games", href: "#games", num: "03" },
-  { label: "Hours", href: "#hours", num: "04" },
-  { label: "Location", href: "#visit", num: "05" },
+interface NavItem {
+  label: string;
+  href: string;
+  num: string;
+  /** Path prefix that, when matched against the current pathname, marks the link as active. */
+  activePath?: string;
+}
+
+const NAV: NavItem[] = [
+  { label: "Pricing", href: "/#pricing", num: "01" },
+  { label: "Stations", href: "/#stations", num: "02" },
+  { label: "Events", href: "/events", num: "03", activePath: "/events" },
+  { label: "Menu", href: "/menu", num: "04", activePath: "/menu" },
+  { label: "Visit", href: "/#visit", num: "05" },
 ];
 
 export function SiteNav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 32);
@@ -25,6 +36,12 @@ export function SiteNav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const isActive = (item: NavItem) => {
+    if (item.activePath) return pathname === item.activePath;
+    // Home-anchor links are "active" when we're on the home page
+    return pathname === "/" && item.href.startsWith("/#");
+  };
 
   return (
     <header
@@ -37,8 +54,8 @@ export function SiteNav() {
     >
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="flex h-20 md:h-24 items-center justify-between">
-          <a
-            href="#top"
+          <Link
+            href="/"
             aria-label="Gaming Dojo — home"
             className="inline-flex items-center cursor-pointer"
           >
@@ -46,21 +63,36 @@ export function SiteNav() {
               variant="wordmark"
               className="h-12 md:h-14 lg:h-16"
             />
-          </a>
+          </Link>
 
           <nav className="hidden lg:flex items-center gap-1">
-            {NAV.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="group relative flex items-center gap-2 px-4 py-2 font-display text-sm text-bone/75 hover:text-bone transition-colors duration-200 cursor-pointer rounded-full"
-              >
-                <span className="font-mono text-[10px] text-hachimaki/70 group-hover:text-hachimaki transition-colors">
-                  {item.num}
-                </span>
-                {item.label}
-              </a>
-            ))}
+            {NAV.map((item) => {
+              const active = isActive(item);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "group relative flex items-center gap-2 px-4 py-2 font-display text-sm transition-colors duration-200 cursor-pointer rounded-full",
+                    active
+                      ? "text-bone bg-panel/60"
+                      : "text-bone/75 hover:text-bone",
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "font-mono text-[10px] transition-colors",
+                      active
+                        ? "text-hachimaki"
+                        : "text-hachimaki/70 group-hover:text-hachimaki",
+                    )}
+                  >
+                    {item.num}
+                  </span>
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="flex items-center gap-2 md:gap-3">
@@ -96,24 +128,34 @@ export function SiteNav() {
             className="lg:hidden bg-sumi/95 backdrop-blur-lg border-t border-ash"
           >
             <div className="mx-auto max-w-7xl px-5 py-6 flex flex-col gap-1">
-              {NAV.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="group flex items-center justify-between border-b border-ash py-4 cursor-pointer"
-                >
-                  <span className="flex items-center gap-3">
-                    <span className="font-mono text-[10px] text-hachimaki">
-                      {item.num}
+              {NAV.map((item) => {
+                const active = isActive(item);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="group flex items-center justify-between border-b border-ash py-4 cursor-pointer"
+                  >
+                    <span className="flex items-center gap-3">
+                      <span className="font-mono text-[10px] text-hachimaki">
+                        {item.num}
+                      </span>
+                      <span
+                        className={cn(
+                          "font-display text-2xl tracking-tight transition-colors",
+                          active
+                            ? "text-hachimaki italic"
+                            : "text-bone group-hover:text-hachimaki",
+                        )}
+                      >
+                        {item.label}
+                      </span>
                     </span>
-                    <span className="font-display text-2xl tracking-tight text-bone group-hover:text-hachimaki transition-colors">
-                      {item.label}
-                    </span>
-                  </span>
-                  <span className="font-display text-bone/30">→</span>
-                </a>
-              ))}
+                    <span className="font-display text-bone/30">→</span>
+                  </Link>
+                );
+              })}
             </div>
           </motion.div>
         )}

@@ -3,7 +3,7 @@ import { Instagram, Music2, MessageCircle, MapPin, Phone } from "lucide-react";
 
 const SOCIALS = [
   { Icon: Instagram, label: "Instagram", href: "https://www.instagram.com/gamingdojonyc/" },
-  { Icon: Music2, label: "TikTok", href: "https://tiktok.com" },
+  { Icon: Music2, label: "TikTok", href: "https://www.tiktok.com/@gamingdojonyc" },
   { Icon: MessageCircle, label: "Discord", href: "https://discord.gg/Gxq6HM8JKw" },
 ];
 
@@ -11,20 +11,19 @@ const SECTIONS = [
   {
     title: "Visit",
     links: [
-      { label: "Pricing", href: "#pricing" },
-      { label: "Stations", href: "#stations" },
-      { label: "Consoles", href: "#consoles" },
-      { label: "Hours", href: "#hours" },
-      { label: "Location", href: "#visit" },
+      { label: "Pricing", href: "/#pricing" },
+      { label: "Stations", href: "/#stations" },
+      { label: "Hours", href: "/#hours" },
+      { label: "Location", href: "/#visit" },
     ],
   },
   {
     title: "Play",
     links: [
-      { label: "PC Loadout", href: "#stations" },
-      { label: "Console Pit", href: "#consoles" },
-      { label: "Streaming Room", href: "#amenities" },
-      { label: "Dojo Kitchen", href: "#amenities" },
+      { label: "Games", href: "/#games" },
+      { label: "Streaming Studio", href: "/#studio" },
+      { label: "Events", href: "/events" },
+      { label: "Menu", href: "/menu" },
       { label: "Tournaments", href: "https://discord.gg/Gxq6HM8JKw" },
     ],
   },
@@ -110,7 +109,7 @@ export function Footer() {
                 $8/hr for life.
               </p>
               <a
-                href="#pricing"
+                href="/#pricing"
                 className="mt-4 inline-flex items-center gap-2 font-display text-sm text-hachimaki hover:text-bone transition-colors cursor-pointer"
               >
                 See pricing →

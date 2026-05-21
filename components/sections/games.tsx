@@ -166,7 +166,6 @@ export function Games() {
 
       <div className="relative mx-auto max-w-7xl px-5 md:px-8">
         <SectionHeader
-          index="05"
           eyebrow="Game library"
           title={
             <>

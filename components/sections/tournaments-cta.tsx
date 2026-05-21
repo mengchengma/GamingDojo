@@ -48,7 +48,7 @@ export function TournamentsCTA() {
                 <ArrowUpRight className="size-4" />
               </Button>
             </a>
-            <a href="#visit">
+            <a href="/#visit">
               <Button variant="outline" size="lg">
                 Or come watch in person
               </Button>

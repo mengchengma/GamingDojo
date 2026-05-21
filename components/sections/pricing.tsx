@@ -40,7 +40,7 @@ const TIERS = [
 
 const SOCIALS = [
   { Icon: Instagram, label: "Instagram", handle: "@gamingdojonyc", href: "https://www.instagram.com/gamingdojonyc/" },
-  { Icon: Music2, label: "TikTok", handle: "@gamingdojo", href: "https://tiktok.com" },
+  { Icon: Music2, label: "TikTok", handle: "@gamingdojonyc", href: "https://www.tiktok.com/@gamingdojonyc" },
   { Icon: MessageCircle, label: "Discord", handle: "Gaming Dojo", href: "https://discord.gg/Gxq6HM8JKw" },
 ];
 
@@ -143,7 +143,7 @@ export function Pricing() {
                     tier.highlight
                       ? () => setModalOpen(true)
                       : () => {
-                          window.location.hash = "#visit";
+                          window.location.href = "/#visit";
                         }
                   }
                 >

@@ -241,7 +241,7 @@ export function BattleStations() {
     >
       <div className="relative mx-auto max-w-7xl px-5 md:px-8">
         <SectionHeader
-          index="04"
+          index="02"
           eyebrow="Our services"
           title={
             <>
