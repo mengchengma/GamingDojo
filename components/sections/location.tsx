@@ -20,7 +20,7 @@ export function Location() {
     >
       <div className="relative mx-auto max-w-7xl px-5 md:px-8">
         <SectionHeader
-          index="09"
+          index="05"
           eyebrow="Visit"
           title={
             <>
@@ -51,9 +51,6 @@ export function Location() {
               allowFullScreen
             />
             <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-bone/5" />
-            <div className="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-[0.3em] text-bone bg-sumi/85 backdrop-blur px-3 py-1.5 border border-ash rounded-full">
-              <span className="text-hachimaki">●</span> 40.7596° N · -73.8302° W
-            </div>
           </motion.div>
 
           <div className="lg:col-span-5 bg-panel p-8 md:p-10 flex flex-col justify-between gap-8">

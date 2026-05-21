@@ -34,7 +34,6 @@ export function StreamStudio() {
 
       <div className="relative mx-auto max-w-7xl px-5 md:px-8">
         <SectionHeader
-          index="03"
           eyebrow="Streaming Studio"
           title={
             <>

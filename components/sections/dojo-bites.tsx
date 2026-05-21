@@ -42,7 +42,7 @@ export function DojoBites() {
 
       <div className="relative mx-auto max-w-7xl px-5 md:px-8">
         <SectionHeader
-          index="06"
+          index="04"
           eyebrow="Dojo Bites"
           title={
             <>
