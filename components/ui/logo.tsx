@@ -55,12 +55,23 @@ function ShieldLogo({
       aria-label="Gaming Dojo"
     >
       {!showSvg && (
-        <img
-          src="/logo-shield.png"
-          alt=""
-          className="h-full w-full object-contain"
-          onError={() => setImgFailed(true)}
-        />
+        <>
+          {/* Light mode — dark navy shield */}
+          <img
+            src="/logo-shield.png"
+            alt=""
+            className="h-full w-full object-contain dark:hidden"
+            onError={() => setImgFailed(true)}
+          />
+          {/* Dark mode — gold shield */}
+          <img
+            src="/golden-logo.png"
+            alt=""
+            aria-hidden
+            className="hidden h-full w-full object-contain dark:block"
+            onError={() => setImgFailed(true)}
+          />
+        </>
       )}
       {showSvg && <ShieldSvg className="h-full w-full" />}
     </span>
