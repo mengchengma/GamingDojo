@@ -29,6 +29,12 @@ const SECTIONS = [
   },
 ];
 
+// Builder credit. Swap href for your portfolio or LinkedIn once you have it.
+const BUILT_BY = {
+  name: "Meng",
+  href: "https://www.linkedin.com/in/mengcm/",
+};
+
 export function Footer() {
   return (
     <footer className="relative isolate border-t border-ash bg-shadow">
@@ -119,10 +125,35 @@ export function Footer() {
         </div>
 
         <div className="mt-16 pt-8 border-t border-ash flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs font-mono text-muted">
-          <div>
-            © {new Date().getFullYear()} Gaming Dojo. All rights reserved.
+          <div className="flex flex-col gap-1.5">
+            <div>
+              © {new Date().getFullYear()} Gaming Dojo. All rights reserved.
+            </div>
+            <div>
+              Made by{" "}
+              <a
+                href={BUILT_BY.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-bone/70 hover:text-hachimaki underline-offset-4 hover:underline transition-colors cursor-pointer"
+              >
+                {BUILT_BY.name}
+              </a>
+            </div>
           </div>
-          <div className="flex items-center gap-6 uppercase tracking-[0.3em]">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 uppercase tracking-[0.3em]">
+            <a
+              href="/privacy"
+              className="hover:text-hachimaki transition-colors cursor-pointer"
+            >
+              Privacy
+            </a>
+            <a
+              href="/terms"
+              className="hover:text-hachimaki transition-colors cursor-pointer"
+            >
+              Terms
+            </a>
             <span>Flushing · NYC</span>
             <span>Est. 2025</span>
           </div>
