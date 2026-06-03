@@ -192,8 +192,15 @@ function sortByTime(events: DojoEvent[]) {
 }
 
 export function Events() {
-  // Start on May 2026 (the placeholder month with all the events)
-  const [view, setView] = useState({ year: 2026, month: 4 });
+  // Default to the current month so the calendar always opens on "now".
+  // The lazy initializer reads the visitor's clock on the client. On a
+  // statically built page the server bakes in the build month, so if the
+  // calendar month has since rolled over it snaps to the real current month
+  // on load.
+  const [view, setView] = useState(() => {
+    const d = new Date();
+    return { year: d.getFullYear(), month: d.getMonth() };
+  });
 
   // Today highlight (only after hydration to avoid SSR mismatch)
   const [today, setToday] = useState<{
